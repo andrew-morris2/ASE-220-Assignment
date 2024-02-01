@@ -37,21 +37,30 @@
             <div class="row" id="petCards">
                 <script>
                 var petCards = document.getElementById('petCards');
+                //looping through each pet in the array to display
                 for(var i=0; i < pets.length; i++){
                     var pet = pets[i];
+
+                    //will set male/female icon onto pet card based on pet.sex value
+                    var genderIcon = pet.sex === 'Male' ? 'mars' : 'venus';
+
+                    //setting URL parameters
+                    var petURL = new URLSearchParams();
+                    petURL.set('pet', JSON.stringify(pet));
+
                     petCards.innerHTML += `
                         <div class="col-md-4">
-                            <div class="card text-center">
+                            <div class="card text-center" style="height: 700px;">
                                 <div class="card-body">
-                                    <h5 class="card-title" style="font-size: 30px;">${pet.name} <i class="fas fa-mars"></i></h5>
-                                    <img src="./images/beagle.jpeg">
+                                    <h5 class="card-title" style="font-size: 30px;">${pet.name} <i class="fas fa-${genderIcon}"></i></h5>
+                                    <img src="./images/${pet.name}.jpeg">
                                     <hr>
                                     <p class="card-text card-content ">Type: ${pet.type}</p>
                                     <p class="card-text card-content">Breed: ${pet.breed}</p>
                                     <p class="card-text card-content">Sex: ${pet.sex}</p>
                                     <p class="card-text card-content">Color: ${pet.color}</p>
-                                    <p class="card-text card-content">Age: ${pet.age} <i class="fas fa-clock"></i></p>
-                                    <p class="card-text"><a href="details_baxter.html">Click here to find out more about ${pet.name}</a></p>
+                                    <p class="card-text card-content">Age: ${pet.age}</p>
+                                    <p class="card-text"><a href="details.html?${petURL.toString()}">Click here to find out more about ${pet.name}</a></p>
                                 </div>  
                             </div>
                         </div>
