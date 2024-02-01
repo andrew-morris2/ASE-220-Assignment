@@ -4,6 +4,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="./data.js"></script>
+        
         <title>Main Page</title>
         <style>
             .card{
@@ -11,6 +12,7 @@
                 border-style: solid;
                 border-color: #dee2e6;
                 height: 600px;
+                margin-bottom: 30px;
             }
 
             .card-content{
@@ -32,54 +34,31 @@
     <body>
         
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-size: 30px;">Baxter <i class="fas fa-mars"></i></h5>
-                            <img src="./images/beagle.jpeg">
-                            <hr>
-                            <p class="card-text card-content ">Type: Dog</p>
-                            <p class="card-text card-content">Breed: Beagle</p>
-                            <p class="card-text card-content">Sex: Male</p>
-                            <p class="card-text card-content">Tri-color(Black, Brown, White)</p>
-                            <p class="card-text card-content">Age: 5 Years Old <i class="fas fa-clock"></i></p>
-                            <p class="card-text"><a href="details_baxter.html">Click here to find out more about Baxter</a></p>
-                        </div>  
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-size: 30px;">Luna <i class="fas fa-venus"></i></h5>
-                            <img height="230" src="./images/images.jpeg">
-                            <hr>
-                            <p class="card-text card-content">Type: Cat</p>
-                            <p class="card-text card-content">Breed: Maine Coone</p>
-                            <p class="card-text card-content">Sex: Female</p>
-                            <p class="card-text card-content">Color: Grey with white spots</p>
-                            <p class="card-text card-content">Age: 3 Years Old <i class="fas fa-calendar"></i></p>
-                            <p class="card-text"><a href="details_luna.html">Click here to find out more about Luna</a></p>
-                        </div> 
-                    </div>
-                </div>
+            <div class="row" id="petCards">
+                <script>
+                var petCards = document.getElementById('petCards');
+                for(var i=0; i < pets.length; i++){
+                    var pet = pets[i];
+                    petCards.innerHTML += `
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-size: 30px;">${pet.name} <i class="fas fa-mars"></i></h5>
+                                    <img src="./images/beagle.jpeg">
+                                    <hr>
+                                    <p class="card-text card-content ">Type: ${pet.type}</p>
+                                    <p class="card-text card-content">Breed: ${pet.breed}</p>
+                                    <p class="card-text card-content">Sex: ${pet.sex}</p>
+                                    <p class="card-text card-content">Color: ${pet.color}</p>
+                                    <p class="card-text card-content">Age: ${pet.age} <i class="fas fa-clock"></i></p>
+                                    <p class="card-text"><a href="details_baxter.html">Click here to find out more about ${pet.name}</a></p>
+                                </div>  
+                            </div>
+                        </div>
+                    `
+                }
+                </script>
             
-                <div class="col-md-4">
-                    <div class="card text-center">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-size: 30px;">Sophie <i class="fas fa-venus"></i></h5>
-                            <img height="230" width="260" src="./images/download.jpeg">
-                            <hr>
-                            <p class="card-text card-content">Type: Cat</p>
-                            <p class="card-text card-content">Breed: Ragdoll</p>
-                            <p class="card-text card-content">Sex: Female</p>
-                            <p class="card-text card-content">Color: Seal Point with blue eyes</p>
-                            <p class="card-text card-content">Age: 1 Year Old <i class="fas fa-birthday-cake"></i></p>
-                            <p class="card-text"><a href="details_sohpie.html">Click here to find out more about Sophie</a></p>
-                        </div> 
-                    </div>
-                </div> 
             </div> 
         </div>
         
