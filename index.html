@@ -45,8 +45,7 @@
                     var genderIcon = pet.sex === 'Male' ? 'mars' : 'venus';
 
                     //setting URL parameters
-                    var petURL = new URLSearchParams();
-                    petURL.set('pet', JSON.stringify(pet));
+                    var index = i;
 
                     petCards.innerHTML += `
                         <div class="col-md-4">
@@ -60,7 +59,7 @@
                                     <p class="card-text card-content">Sex: ${pet.sex}</p>
                                     <p class="card-text card-content">Color: ${pet.color}</p>
                                     <p class="card-text card-content">Age: ${pet.age}</p>
-                                    <p class="card-text"><a href="details.html?${petURL.toString()}">Click here to find out more about ${pet.name}</a></p>
+                                    <p class="card-text"><a href="details.html?index=${i}">Click here to find out more about ${pet.name}</a></p>
                                 </div>  
                             </div>
                         </div>
