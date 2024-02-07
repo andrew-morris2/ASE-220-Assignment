@@ -1,20 +1,50 @@
 <!DOCTYPE html>
-<div class="col-md-12">
-    <script src="./data.js"></script>
-    <div class="card-text-center">
-        <div class="card-header">
-            <h5 class="card-title">About Me <i class="fas fa-dog" style="color: brown;"></i></h5>
-            <divclass="card-body" style=text-align: center>
-                <p class="card-text card-content">About Me <i class="fas fa-heart" style="color: red;"></i></p>
-                <hr>
-                <h5 class="card-title" style="font-size: 30px;">More info</h5>
-                <ul>
-                    <li class="list-left"><p class="card-content">Animal ID: ${pet.id}</p></li>
-                    <li class="list-left"><p class="card-content">Microchip: ${pet.chip}</p></li>
-                    <li class="list-left"><p class="card-content">Spayed/Neutered: ${pet.spayed}</p></li>
-                </ul>
-            <a href="./index.html">Back to home</a>
+<html>
+    <head>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">About Me</h5>
+                        <div class="card-body" style="text-align:center;">
+                        <p id="name">Name: </p>
+                        <p id="type">Type: </p>
+                        <p id="breed">Breed: </p>
+                        <p id="sex">Sex: </p>
+                        <p id="color">Color: </p> 
+                        <p id="age">Age: </p>
+                        <p id="animalId">Animal ID: </p>
+                        <p id="microchip">Microchip: </p>
+                        <p id="spayedNeutered">Spayed/Neutered: </p>
+                        <p id="about">About: </p>
+                        <p  id="status">Status: </p> 
+                        <a href="./index.html">Back to home</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <!-- <div class="col-md-12">
+            <div class="card-text-center">
+                <div class="card-header">
+                    <h5 class="card-title">About Me <i class="fas fa-dog" style="color: brown;"></i></h5>
+                    <divclass="card-body" style=text-align:center>
+                        <p class="card-text card-content">About Me <i class="fas fa-heart" style="color: red;"></i></p>
+                        <hr>
+                        <h5 class="card-title" style="font-size: 30px;">More info</h5>
+                        <ul>
+                            <li class="list-left"><p class="card-content">Animal ID: ${pet.id}</p></li>
+                            <li class="list-left"><p class="card-content">Microchip: ${pet.chip}</p></li>
+                            <li class="list-left"><p class="card-content">Spayed/Neutered: ${pet.spayed}</p></li>
+                        </ul>
+                    <a href="./index.html">Back to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>  -->
+        <script src="./data.js"></script>
+        <script src="details.js"></script>
+    </body>
+</html>
