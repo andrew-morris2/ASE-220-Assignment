@@ -8,8 +8,7 @@
     <title>Recipe Book</title>
     <style>
         .nav-container{
-            border: 5px solid orange ;
-            height: 150px;
+            height: 100px;
             padding: 10px;
             margin: 25px;
             text-align: center;
@@ -35,6 +34,41 @@
             color: green;
             font-family: 'Roboto';
             font-weight: 500;
+            margin-bottom: 25px;
+        }
+
+        .header-container{
+            text-align: center;
+            margin: 50px;
+        }
+        .font-head{
+            font-family: 'Roboto';
+            color: green;
+            font-weight: 700;
+        }
+
+        .font-body{
+            font-family: 'Roboto';
+            font-weight: 700;
+        }
+
+        .recipe-card-title{
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .custom-line{
+            height: 5px;
+            background-color: orange !important;
+            margin-top: 10px;
+        }
+
+        .recipe-card-container{
+            margin: 25px;
+        }
+
+        .recipe-card{
+            text-align: center;
         }
     </style>
   </head>
@@ -71,6 +105,42 @@
             </div>
         </div>
     </div>
+    <div class="custom-line"></div>
+
+    <div class="container-fluid" style="height: 500px">
+        <div class="header-container font-head">
+            <h1>Check out our Recipes</h1>
+        </div>
+        <div class="recipe-card-container">
+            <div class="row">
+                <div class="recipe-card col-md-4 font-body">
+                    <div class="image">Image goes here
+                        <div class="custom-line"></div>
+                        <div class="recipe-card-title">
+                            <p>Name of recipe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recipe-card col-md-4 font-body">
+                    <div class="image">Image goes here
+                        <div class="custom-line"></div>
+                        <div class="recipe-card-title">
+                            <p>Name of recipe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="recipe-card col-md-4 font-body">
+                    <div class="image">Image goes here
+                        <div class="custom-line"></div>
+                        <div class="recipe-card-title">
+                            <p>Name of recipe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: orange; height: 75px;"></div>
   </body>
 </html>
 
