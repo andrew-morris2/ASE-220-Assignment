@@ -1,20 +1,15 @@
-.card{
-    border-width: 4px;
-    border-style: solid;
-    border-color: #dee2e6;
-    height: 600px;
-    margin-bottom: 30px;
-}
-
 .card-title{
-    font-size: 18px;
-    text-align: left;
+    font-size: 50px;
+    text-align: center;
+    border: 2px solid black;
+    color: green;
+    padding: 10px; 
+    
+
 }
 
-.fa-mars{
-    color: blue;
-}
-
-.fa-venus{
-    color: pink;
+.card-head{
+    font-size: 30px;
+    text-align: center;
+    border: 2px solid black;
 }
