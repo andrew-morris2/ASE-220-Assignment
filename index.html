@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+      rel="stylesheet">
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-    />
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="./scripts.js"></script>
     <title>Recipe Book</title>
     <style>
       .nav-container {
@@ -76,6 +77,16 @@
       .recipe-card {
         text-align: center;
       }
+
+      li{
+        text-align: left;
+      }
+      .image img {
+            width: 225px;
+            height: 225px;
+            background-size: cover;
+      }
+
     </style>
   </head>
 
@@ -83,7 +94,7 @@
     <div class="container-fluid">
       <div class="nav-container">
         <div id="header">
-          <h1 style="font-family: Roboto; color: green">Fresh recipes</h1>
+          <h1 style="font-family: Roboto; color: green">FlavorFusion <i class="fas fa-utensils"></i></h1>
         </div>
         <div class="nav-bar">
           <div class="row">
@@ -117,41 +128,12 @@
       <div class="header-container font-head">
         <h1>Check out our Recipes</h1>
       </div>
-      <div class="recipe-card-container" id="recipe-list"></div>
-      <div class="recipe-card-container">
-        <div class="row">
-          <div class="recipe-card col-md-4 font-body">
-            <div class="image">
-              Image goes here
-              <div class="custom-line"></div>
-              <div class="recipe-card-title">
-                <p>Name of recipe</p>
-              </div>
-            </div>
-          </div>
-          <div class="recipe-card col-md-4 font-body">
-            <div class="image">
-              Image goes here
-              <div class="custom-line"></div>
-              <div class="recipe-card-title">
-                <p>Name of recipe</p>
-              </div>
-            </div>
-          </div>
-          <div class="recipe-card col-md-4 font-body">
-            <div class="image">
-              Image goes here
-              <div class="custom-line"></div>
-              <div class="recipe-card-title">
-                <p>Name of recipe</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="recipe-card-container" id="recipe-list">
+            <script>
+                loadHomeRecipes();
+            </script>
       </div>
     </div>
     <div style="background-color: orange; height: 75px"></div>
-
-    <script src="scripts.js"></script>
   </body>
 </html>
