@@ -58,42 +58,79 @@
         height: 5px;
         background-color: orange !important;
         margin-top: 10px;
+        margin-top: 25px;
+        
+      }
+
+      img {
+            width: 250px;
+            height: 250px;
+            background-size: cover;
+            margin-left: 75px;
+      }
+
+      .recipe-card{
+        margin-top: 25px;
+        padding: 25px;
+      }
+
+      .recipe-card-container{
+        margin-left: 25px;
+        margin-right: 25px;
+      }
+
+      .font-body{
+        font-family: "Roboto";
+        font-weight: 700;
+      }
+
+      li{
+        list-style-type: disc;
+        margin: 0;
+        padding: 0;
       }
         </style>
     </head>
-    <body>
         <body>
             <div class="container-fluid">
-              <div class="nav-container">
-                <div id="header">
-                  <h1 style="font-family: Roboto; color: green; font-weight: bold">FlavorFusion <i class="fas fa-utensils"></i></h1>
+                <div class="nav-container">
+                    <div id="header">
+                    <h1 style="font-family: Roboto; color: green; font-weight: bold">FlavorFusion <i class="fas fa-utensils"></i></h1>
+                    </div>
+                    <div class="nav-bar">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="nav-element">
+                                    <a class="nav-element" href="./index.html">Home</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="nav-element">
+                                    <p>About us</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="nav-element">
+                                    <a class="nav-element" href="./recipe.html">Recipes</a>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="nav-element">
+                                    <p>Add Recipes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="nav-bar">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <div class="nav-element">
-                        <a class="nav-element" href="./index.html">Home</a>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="nav-element">
-                        <p>About us</p>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="nav-element">
-                        <a class="nav-element" href="./recipe.html">Recipes</a>
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="nav-element">
-                        <p>Add Recipes</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="custom-line"></div>
+        </div>
+    
+        <div class="container-fluid">
+            <div class="recipe-list" id="recipe-list">
+            </div>
+        </div>
+        <script>
+            loadRecipesPage();
+        </script>
     </body>
 </html>
