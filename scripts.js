@@ -52,7 +52,7 @@ function displayRecipes(recipes) {
         //creating link to recipe
         const linkToRecipe = document.createElement('a');
         linkToRecipe.classList.add('font-body');
-        linkToRecipe.href = '';
+        linkToRecipe.href = 'one_item.html';
         linkToRecipe.textContent = 'See more details';
 
         //establshing parent/child relationship 
@@ -73,6 +73,7 @@ function displayRecipes(recipes) {
 
     recipeList.appendChild(row);
 }
+
 
 
 function fetchDessertRecipes() {
@@ -148,4 +149,48 @@ function displayDesserts(recipes){
     })
 }
 
+function loadRecipeDetails(recipeName) {
+    fetch('https://jsonblob.com/api/jsonblob/1209605678733058048')
+        .then(response => response.json())
+        .then(data => {
+            const recipe = data.recipes.find(recipe => recipe.name === recipeName);
+
+            if (recipe) {
+                displayRecipeDetails(recipe);
+            } else {
+                console.error('Recipe not found');
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching recipe details:', error);
+        });
+}
+
+function displayRecipeDetails(recipe) {
+    document.getElementById('recipe-title').textContent = recipe.name;
+
+    const ingredientsList = document.getElementById('recipe-ingredients');
+    ingredientsList.textContent = `Ingredients: ${recipe.ingredients.join(', ')}`;
+
+    const instructions = document.getElementById('recipe-instructions');
+    instructions.textContent = `Instructions: ${recipe.instructions}`;
+
+    const nutritionInfo = document.getElementById('recipe-nutrition');
+    nutritionInfo.textContent = `Nutrition - Calories: ${recipe.nutrition.calories}, Protein: ${recipe.nutrition.protein}, Carbs: ${recipe.nutrition.carbs}`;
+}
+
+// Add an event listener to the "See more details" link
+document.addEventListener('DOMContentLoaded', function () {
+    const seeMoreLink = document.querySelector('#recipe-list a');
+    
+    if (seeMoreLink) {
+        seeMoreLink.addEventListener('click', function (event) {
+            event.preventDefault();
+            const recipeName = this.closest('.recipe-card').querySelector('.recipe-card-title p').textContent;
+            loadRecipeDetails(recipeName);
+
+            window.location.href = 'one_item.html';
+        });
+    }
+});
 
