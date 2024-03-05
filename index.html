@@ -42,6 +42,7 @@
         font-family: "Roboto";
         font-weight: 500;
         margin-bottom: 25px;
+        text-decoration: none;
       }
 
       .header-container {
@@ -52,6 +53,7 @@
         font-family: "Roboto";
         color: green;
         font-weight: 700;
+        text-align: center;
       }
 
       .font-body {
@@ -60,8 +62,10 @@
       }
 
       .recipe-card-title {
+        font-size: 24px;
         margin-top: 15px;
         text-align: center;
+        font-family: 'Playfair Display', serif;
       }
 
       .custom-line {
@@ -76,17 +80,52 @@
 
       .recipe-card {
         text-align: center;
+        margin-top: 25px;
       }
 
       li{
         text-align: left;
+        font-size: 18px;
       }
-      .image img {
-            width: 225px;
-            height: 225px;
+      img {
+            width: 250px;
+            height: 250px;
             background-size: cover;
       }
 
+      .footer-container{
+        background-color: orange;
+        border: 2px solid black;
+        margin: 0px;
+      }
+
+      .dessert-card{
+        display: flex;
+        margin-top: 25px;
+      }
+
+      .dessert-image{
+        width: 30%;
+      }
+
+      .dessert-details{
+        width: 60%;
+      }
+
+      .ingredients-list {
+        list-style-type: disc;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ingredients-list li {
+        text-align: left;
+    }
+
+    .dessert-details {
+        display: flex;
+        justify-content: space-between;
+    }
     </style>
   </head>
 
@@ -94,13 +133,13 @@
     <div class="container-fluid">
       <div class="nav-container">
         <div id="header">
-          <h1 style="font-family: Roboto; color: green">FlavorFusion <i class="fas fa-utensils"></i></h1>
+          <h1 style="font-family: Roboto; color: green; font-weight: bold">FlavorFusion <i class="fas fa-utensils"></i></h1>
         </div>
         <div class="nav-bar">
           <div class="row">
             <div class="col-md-3">
               <div class="nav-element">
-                <p>Home</p>
+                <a class="nav-element" href="./index.html">Home</a>
               </div>
             </div>
             <div class="col-md-3">
@@ -110,7 +149,7 @@
             </div>
             <div class="col-md-3">
               <div class="nav-element">
-                <p>Recipes</p>
+                <a class="nav-element" href="./recipe.html">Recipes</a>
               </div>
             </div>
             <div class="col-md-3">
@@ -124,16 +163,37 @@
     </div>
     <div class="custom-line"></div>
 
-    <div class="container-fluid" style="height: 500px">
+    <div class="container-fluid">
       <div class="header-container font-head">
-        <h1>Check out our Recipes</h1>
+        <h1 style="font-weight: bold">Check out our best Recipes</h1>
+        <div style="border: 2px solid black; margin-left: 350px; margin-right: 350px;"></div>
       </div>
       <div class="recipe-card-container" id="recipe-list">
             <script>
-                loadHomeRecipes();
+                loadHomeRecipes(); //fetching data to json blob and dynamically adding cards
             </script>
       </div>
     </div>
-    <div style="background-color: orange; height: 75px"></div>
+
+    <div class="container-fluid">
+        <div class="header-container font-head">
+            <h1 style="font-weight: bold">Now introducing dessert recipes!</h1>
+            <div style="border: 2px solid black; margin-left: 350px; margin-right: 350px;"></div>
+        </div>
+        <div class="row dessert-card-container" id="dessert-container">
+        </div>
+    </div>
+
+    <script>
+        fetchDessertRecipes();
+    </script>
+
+    <div class="container-fluid">
+        <div class="footer-container" id="footer">
+            <div class="footer-header">
+                <h3 class="font-head">Follow us on social media</h3>
+            </div>
+        </div>
+    </div>
   </body>
 </html>
