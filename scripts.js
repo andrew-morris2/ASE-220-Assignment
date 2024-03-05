@@ -2,7 +2,7 @@ function loadHomeRecipes() {
     fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
     .then(response => response.json())
     .then(data => {
-        displayRecipes(data.recipes.slice(0, 3)); //this will only display the 3 recipes for the homepage
+        displayRecipes(data.recipes.slice(0, 3)); //this will only display the first 3 recipes for the homepage
     })
     .catch(error => {
         console.error('Error fetching recipes:', error);
@@ -11,13 +11,25 @@ function loadHomeRecipes() {
 
 function displayRecipes(recipes) {
     const recipeList = document.getElementById('recipe-list');
-    //dynamically creating the html for the recipe cards
-    const row = document.createElement('div');
-    row.classList.add('row');
-
-    recipes.forEach(recipe => {
+    let row;
+    recipes.forEach((recipe, index) => { //will display 3 recipes per row
+        if (index % 3 === 0) {
+            row = document.createElement('div');
+            row.classList.add('row');
+            recipeList.appendChild(row);
+        }
+        //dynamically creating the html for the recipe cards
         const recipeCard = document.createElement('div');
-        recipeCard.classList.add('recipe-card', 'col-md-4', 'font-body');
+        recipeCard.classList.add('recipe-card', 'col-md-4');
+        recipeCard.style.textAlign = "center";
+        //creating an event listener that will listen if the recipe card is clicked and will take them to a page containing more details
+        recipeCard.addEventListener('click', () => {
+            const urlParams = new URLSearchParams();
+            urlParams.append('recipeName', recipe.name);
+            window.location.href = `recipe_details.html?${urlParams.toString()}`;
+        });
+        //changes cursor to show that recipe-card is clickable
+        recipeCard.style.cursor = "pointer";
 
         const image = document.createElement('div');
         image.classList.add('image');
@@ -36,9 +48,11 @@ function displayRecipes(recipes) {
         customLine.classList.add('custom-line');
 
         const recipeCardTitle = document.createElement('div');
-        recipeCardTitle.classList.add('recipe-card-title');
+        recipeCardTitle.classList.add('recipe-card-title', 'font-body');
         const title = document.createElement('p');
         title.textContent = recipe.name;
+        title.style.fontSize = "24px";
+        title.style.textAlign = "center";
 
         const nutritionList = document.createElement('ul');
         const caloriesItem = document.createElement('li');
@@ -54,6 +68,7 @@ function displayRecipes(recipes) {
         linkToRecipe.classList.add('font-body');
         linkToRecipe.href = '';
         linkToRecipe.textContent = 'See more details';
+        linkToRecipe.style.textAlign = "center";
 
         //establshing parent/child relationship 
         nutritionList.appendChild(caloriesItem);
@@ -69,9 +84,8 @@ function displayRecipes(recipes) {
         recipeCard.appendChild(linkToRecipe);
 
         row.appendChild(recipeCard);
-    });
-
-    recipeList.appendChild(row);
+        
+    })
 }
 
 
@@ -79,7 +93,7 @@ function fetchDessertRecipes() {
         fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
         .then(response => response.json())
         .then(data => {
-            displayDesserts(data.recipes);
+            displayDesserts(data.recipes); //when fetchDessertRecipes is called, it also calls displayDesserts
         })
         .catch(error => {
             console.error('Error fetching recipes:', error);
@@ -95,7 +109,7 @@ function displayDesserts(recipes){
 
         const dessertCard = document.createElement('div');
         dessertCard.classList.add('dessert-card');
-
+        //image column
         const imageName = recipe.name.toLowerCase().replace(/\s+/g, '-'); 
         const imagePath = `./images/${imageName}.jpeg`; 
         const dessertImgCol = document.createElement('div');
@@ -103,7 +117,7 @@ function displayDesserts(recipes){
         dessertImgCol.style.marginLeft = "50px"
         dessertImgCol.classList.add('dessert-image', 'col-md-6');
         dessertImgCol.innerHTML = `<img src="${imagePath}">`;
-
+        //dessert details column
         const dessertCardDetails = document.createElement('div');
         dessertCardDetails.classList.add('dessert-details', 'col-md-6', 'font-body');
         dessertCardDetails.style.marginTop = "45px";
@@ -112,18 +126,18 @@ function displayDesserts(recipes){
         const ingredientsListLeft = document.createElement('ul');
         const ingredientsListRight = document.createElement('ul');
 
-        // Divide ingredients into two sections
-        const ingredientsLeft = recipe.ingredients.slice(0, 5);
+        // Dividing the ingredients into 2 sections to prevent long lists of data on each dessert card
+        const ingredientsLeft = recipe.ingredients.slice(0, 5); //splitting ingredients list by 5
         const ingredientsRight = recipe.ingredients.slice(5);
 
-        // Populate left section
+        
         ingredientsLeft.forEach(ingredient => {
             const listIngredient = document.createElement('li');
             listIngredient.textContent = ingredient;
             ingredientsListLeft.appendChild(listIngredient);
         });
 
-        // Populate right section
+        
         ingredientsRight.forEach(ingredient => {
             const listIngredient = document.createElement('li');
             listIngredient.textContent = ingredient;
@@ -144,8 +158,35 @@ function displayDesserts(recipes){
         line.style.marginLeft = "150px";
         line.style.width = "1000px";
         dessertCardContainer.appendChild(line);
+
         document.getElementById('dessert-container').appendChild(dessertCardContainer);
     })
 }
 
+function loadRecipesPage() {
+    fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
+    .then(response => response.json())
+    .then(data => {
+        const recipes = data.recipes.filter(recipe => recipe.category === 'meal') //only getting meal recipes
+        displayRecipes(recipes);
+    })
+}   
 
+function getRecipeDetails(){
+    const parameters = newURLSearchParams(window.location.search);
+    const recipeName = urlParams.get('recipeName');
+    if (recipeName){
+        fetch ('https://jsonblob.com/api/jsonblob/1214331063873953792')
+        .then(response => response.json())
+        .then(data => {
+            const recipe = data.recipes.find(recipe => recipe.name === recipeName);
+            if (recipe){
+                generateRecipeDetails(recipe);
+            }
+        })
+    }
+}
+
+function generateRecipeDetails(recipe){
+    const recipeContainer = getElementById('recipe-container')
+}
