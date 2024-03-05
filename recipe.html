@@ -85,6 +85,34 @@
     li{
         text-align: left;
     }
+
+    .dessert-card{
+        display: flex;
+        margin-top: 25px;
+      }
+
+      .dessert-image{
+        width: 30%;
+      }
+
+      .dessert-details{
+        width: 60%;
+      }
+
+      .ingredients-list {
+        list-style-type: disc;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ingredients-list li {
+        text-align: left;
+    }
+
+    .dessert-details {
+        display: flex;
+        justify-content: space-between;
+    }
         </style>
     </head>
         <body>
@@ -128,6 +156,17 @@
         </div>
         <script>
             loadRecipesPage();
+        </script>
+        
+        <div class="container-fluid">
+            <div class="header">
+                <h3 class="font-head" style="text-align: center; margin-top: 50px;">Desserts</h3>
+                <div class="custom-line"></div>
+            </div>
+            <div class="dessert-container" id="dessert-container"></div>
+        </div>
+        <script>
+            loadDessertsRecipesPage();
         </script>
     </body>
 </html>
