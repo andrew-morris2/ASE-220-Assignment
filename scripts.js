@@ -84,7 +84,7 @@ function displayRecipes(recipes) {
         recipeCard.appendChild(linkToRecipe);
 
         row.appendChild(recipeCard);
-        
+     
     })
 }
 
@@ -290,7 +290,6 @@ function displayRecipeDetails(recipe) {
     const nutritionInfo = document.getElementById('recipe-nutrition');
     nutritionInfo.textContent = `Nutrition - Calories: ${recipe.nutrition.calories}, Protein: ${recipe.nutrition.protein}, Carbs: ${recipe.nutrition.carbs}`;
 }
-
 
 document.addEventListener('DOMContentLoaded', getRecipeDetails);
 
