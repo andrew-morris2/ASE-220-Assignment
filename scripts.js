@@ -1,8 +1,31 @@
+let recipeCounter = 3;
 function loadHomeRecipes() {
     fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
     .then(response => response.json())
     .then(data => {
-        displayRecipes(data.recipes.slice(0, 3)); //this will only display the first 3 recipes for the homepage
+        const recipes = data.recipes.filter(recipe => recipe.category === 'meal');
+        displayRecipes(recipes.slice(0, recipeCounter));
+        if (recipes.length <= recipeCounter) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching recipes:', error);
+    });
+}
+
+
+function loadMoreRecipes() {
+    fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
+    .then(response => response.json())
+    .then(data => {
+        const remainingRecipes = data.recipes.slice(recipeCounter, recipeCounter + 3);
+        displayRecipes(remainingRecipes);
+        recipeCounter += remainingRecipes.length;
+
+        if (recipeCounter >= data.recipes.length) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
     })
     .catch(error => {
         console.error('Error fetching recipes:', error);
