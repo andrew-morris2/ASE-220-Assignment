@@ -12,3 +12,7 @@ Also below that we added a social media section so that people can click and gai
 FInally for the pagination we did it with our recipe section since it had our long list of recipes on it separating them
 
 -Josh - I designed the detail page and created to javascript so that when one was clicked on it would pull all of the details of the one single item and detail it out. Along with tweaking some javascript on the website for functionality.
+
+-Doug - Developed portions of scripts.js 
+Implemented the functionality for adding recipes to the webpage in create.html.
+Made minor adjustments to other files as needed.
