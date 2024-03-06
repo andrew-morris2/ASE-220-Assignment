@@ -96,6 +96,9 @@
 
         <label for="category">Category:</label>
         <input type ="text" id="category" name="category" required><br><br>
+
+        <label for="image">Link to image:</label>
+        <input type="text" id="image" name="image" required><br><br>
         
         <button type="submit">Update Recipe</button>
         <a href="index.html" class="btn btn-secondary">Back to Home Page</a>
@@ -111,7 +114,8 @@
             const calories = parseFloat(document.getElementById('calories').value);
             const protein = parseFloat(document.getElementById('protein').value);
             const carbs = parseFloat(document.getElementById('carbs').value);
-    
+            const category = document.getElementById('category').value;
+
             const newRecipe = {
                 name: recipeName,
                 ingredients: ingredients,
@@ -120,7 +124,8 @@
                     calories: calories,
                     protein: protein,
                     carbs: carbs,
-                }
+                },
+                category: category,
             };
     
             updateRecipe(newRecipe);
