@@ -1,8 +1,31 @@
+let recipeCounter = 3;
 function loadHomeRecipes() {
     fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
     .then(response => response.json())
     .then(data => {
-        displayRecipes(data.recipes.slice(0, 3)); //this will only display the first 3 recipes for the homepage
+        const recipes = data.recipes.filter(recipe => recipe.category === 'meal');
+        displayRecipes(recipes.slice(0, recipeCounter));
+        if (recipes.length <= recipeCounter) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching recipes:', error);
+    });
+}
+
+
+function loadMoreRecipes() {
+    fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
+    .then(response => response.json())
+    .then(data => {
+        const remainingRecipes = data.recipes.slice(recipeCounter, recipeCounter + 3);
+        displayRecipes(remainingRecipes);
+        recipeCounter += remainingRecipes.length;
+
+        if (recipeCounter >= data.recipes.length) {
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
     })
     .catch(error => {
         console.error('Error fetching recipes:', error);
@@ -89,7 +112,7 @@ function displayRecipes(recipes) {
 }
 
 
-function fetchDessertRecipes() {
+function fetchHomeDessertRecipes() {
         fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
         .then(response => response.json())
         .then(data => {
@@ -163,6 +186,69 @@ function displayDesserts(recipes){
     })
 }
 
+function getDesserts(recipes){
+    const dessertRecipe = recipes.filter(recipe => recipe.category === "dessert");
+
+    dessertRecipe.forEach(recipe => {
+        const dessertCardContainer = document.createElement('div');
+        dessertCardContainer.classList.add('row', 'dessert-card-container');
+
+        const dessertCard = document.createElement('div');
+        dessertCard.classList.add('dessert-card');
+        //image column
+        const imageName = recipe.name.toLowerCase().replace(/\s+/g, '-'); 
+        const imagePath = `./images/${imageName}.jpeg`; 
+        const dessertImgCol = document.createElement('div');
+        dessertImgCol.style.marginTop = "25px";
+        dessertImgCol.style.marginLeft = "50px"
+        dessertImgCol.classList.add('dessert-image', 'col-md-6');
+        dessertImgCol.innerHTML = `<img src="${imagePath}">`;
+        //dessert details column
+        const dessertCardDetails = document.createElement('div');
+        dessertCardDetails.classList.add('dessert-details', 'col-md-6', 'font-body');
+        dessertCardDetails.style.marginTop = "45px";
+        dessertCardDetails.innerHTML = `<h3 style="margin-top: 50px; margin-left: 25px; text-align: center">${recipe.name}</h3>`;
+
+        const ingredientsListLeft = document.createElement('ul');
+        const ingredientsListRight = document.createElement('ul');
+
+        // Dividing the ingredients into 2 sections to prevent long lists of data on each dessert card
+        const ingredientsLeft = recipe.ingredients.slice(0, 5); //splitting ingredients list by 5
+        const ingredientsRight = recipe.ingredients.slice(5);
+
+        
+        ingredientsLeft.forEach(ingredient => {
+            const listIngredient = document.createElement('li');
+            listIngredient.textContent = ingredient;
+            ingredientsListLeft.appendChild(listIngredient);
+        });
+
+        
+        ingredientsRight.forEach(ingredient => {
+            const listIngredient = document.createElement('li');
+            listIngredient.textContent = ingredient;
+            ingredientsListRight.appendChild(listIngredient);
+        });
+
+        dessertCardDetails.appendChild(ingredientsListLeft);
+        dessertCardDetails.appendChild(ingredientsListRight);
+
+        dessertCard.appendChild(dessertImgCol);
+        dessertCard.appendChild(dessertCardDetails);
+
+        dessertCardContainer.appendChild(dessertCard);
+
+        const line = document.createElement('div');
+        line.style.marginTop = "25px";
+        line.style.borderTop = '1px solid orange';
+        line.style.marginLeft = "150px";
+        line.style.width = "1000px";
+        dessertCardContainer.appendChild(line);
+
+        document.getElementById('dessert-container').appendChild(dessertCardContainer);
+    })
+}
+
 function loadRecipesPage() {
     fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
     .then(response => response.json())
@@ -172,20 +258,15 @@ function loadRecipesPage() {
     })
 }   
 
-
-function getRecipeDetails(){
-    const parameters = newURLSearchParams(window.location.search);
-    const recipeName = urlParams.get('recipeName');
-    if (recipeName){
-        fetch ('https://jsonblob.com/api/jsonblob/1214331063873953792')
-        .then(response => response.json())
-        .then(data => {
-            const recipe = data.recipes.find(recipe => recipe.name === recipeName);
-            if (recipe){
-                generateRecipeDetails(recipe);
-            }
-        })
-    }
+function loadDessertsRecipesPage(){
+    fetch('https://jsonblob.com/api/jsonblob/1214331063873953792')
+    .then(response => response.json())
+    .then(data => {
+        getDesserts(data.recipes); //this will only display the first 3 recipes for the homepage
+    })
+    .catch(error => {
+        console.error('Error fetching recipes:', error);
+    });
 }
 
 function getRecipeDetails() {
@@ -221,7 +302,6 @@ function generateRecipeDetails(recipe) {
 }
 
 function displayRecipeDetails(recipe) {
-    // Update the DOM elements with the recipe details
     document.getElementById('recipe-title').textContent = recipe.name;
 
     const ingredientsList = document.getElementById('recipe-ingredients');
@@ -234,7 +314,7 @@ function displayRecipeDetails(recipe) {
     nutritionInfo.textContent = `Nutrition - Calories: ${recipe.nutrition.calories}, Protein: ${recipe.nutrition.protein}, Carbs: ${recipe.nutrition.carbs}`;
 }
 
-// Call getRecipeDetails when the DOM is loaded
+
 document.addEventListener('DOMContentLoaded', getRecipeDetails);
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -245,9 +325,8 @@ document.addEventListener('DOMContentLoaded', function () {
             event.preventDefault();
             const recipeName = this.closest('.recipe-card').querySelector('.recipe-card-title p').textContent;
             loadRecipeDetails(recipeName);
-            // Redirect to the recipe details page
+            
             window.location.href = 'one_item.html';
         });
     }
 });
-

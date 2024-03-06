@@ -2,4 +2,4 @@
 
 Creating a responsive website using Bootstrap 5.
 
-Josh- Created the details page alogn with the style and the javascript to pull the details of the card that was clicked and pulled up all the info from the json blob. As well as made some minor tweaks to other code.
+-Josh - I designed the detail page and created to javascript so that when one was clicked on it would pull all of the details of the one single item and detail it out. Along with tweaking some javascript on the website for functionality.
