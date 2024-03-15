@@ -10,9 +10,10 @@
             .card{
                 border-width: 4px;
                 border-style: solid;
-                border-color: #dee2e6;
+                border-color: black;
                 height: 600px;
                 margin-bottom: 30px;
+                border-radius: 10px;
             }
 
             .card-content{
@@ -28,65 +29,140 @@
                 color: pink;
             }
 
+            img{
+                width: 300px;
+                height: 300px;
+            }
 
+            #modalContainer{
+                display: none;
+            }
+
+            .modal-container {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            }
+            .modal-content {
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                text-align: center;
+            }
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+            .modal-Title{
+                text-align: center;
+            }
         </style>
     </head>
     <body>
-        
-        <div class="container">
-            <div class="row" id="petCards">
-                <script>
-                var petCards = document.getElementById('petCards');
-                //looping through each pet in the array to display
-                for(var i=0; i < pets.length; i++){
-                    var pet = pets[i];
-
-                    //will set male/female icon onto pet card based on pet.sex value
-                    var genderIcon = pet.sex === 'Male' ? 'mars' : 'venus';
-
-                    //setting URL parameters
-                    var petURL = new URLSearchParams();
-                    petURL.set('pet', JSON.stringify(pet));
-
-                    petCards.innerHTML += `
-                        <div class="col-md-4">
-                            <div class="card text-center" style="height: 700px;">
-                                <div class="card-body">
-                                    <h5 class="card-title" style="font-size: 30px;">${pet.name} <i class="fas fa-${genderIcon}"></i></h5>
-                                    <img src="./images/${pet.name}.jpeg">
-                                    <hr>
-                                    <p class="card-text card-content ">Type: ${pet.type}</p>
-                                    <p class="card-text card-content">Breed: ${pet.breed}</p>
-                                    <p class="card-text card-content">Sex: ${pet.sex}</p>
-                                    <p class="card-text card-content">Color: ${pet.color}</p>
-                                    <p class="card-text card-content">Age: ${pet.age}</p>
-                                    <p class="card-text"><a href="details.html?${petURL.toString()}">Click here to find out more about ${pet.name}</a></p>
-                                </div>  
-                            </div>
-                        </div>
-                    `
-                }
-                </script>
-            
-            </div> 
-        </div>
-
         <! -- modal container -->
         <div id="modalContainer" class="modal-container">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-Title" id="modalTitle">Pet Details</h4>
+                    <h4 class="modal-Title" id="modalTitle"></h4>
                     <button type="button" class="close" id="closeButton">Close</button>
                 </div>
                 <div class="modal-body" id="modalBody">
-                    <img src="./images/pet">
-                    <h3>Pet name</h3>
-                    <p>Type: pet type</p>
-                    <p>Breed: pet breed</p>
-                    <a href="link_to_pet_details_page">Find out more about (pet name)</a>
+                    <img id="modalImage" src="">
+                    <h3 id="petName"></h3>
+                    <p id="petType"></p>
+                    <p id="petBreed"></p>
+                    <a href="" id="petLink"></a>
                 </div>
             </div>
         </div>
-        
+        <div class="container">
+            <div class="row" id="petCards"></div> 
+            <button id="loadMoreButton">Load More</button>
+        </div>
+        <script>
+            var petCardsContainer = document.getElementById('petCards');
+            var loadMoreButton = document.getElementById('loadMoreButton');
+            var currentPage = 1;
+            var petsPerPage = 6; //loading 6 pets per page
+            
+            function displayPets(){
+                var startingIndex = (currentPage - 1) * petsPerPage;
+                var endIndex = currentPage * petsPerPage;
+
+                for (i = startingIndex; i < Math.min(endIndex, pets.length); i++){
+                    var pet = pets[i];
+                    var petCard = createPetCard(pet);
+                    petCardsContainer.appendChild(petCard);
+                }
+            }
+
+            function createPetCard(pet){
+                var card = document.createElement('div');
+                card.className = 'col-md-4';
+                //will set male/female icon onto pet card based on pet.sex value
+                var genderIcon = pet.sex === 'Male' ? 'mars' : 'venus';
+                var petURL = new URLSearchParams();
+                petURL.set('name', pet.name);
+                card.innerHTML += `
+                        <div class="card text-center" style="height: 700px;">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-size: 30px;">${pet.name} <i class="fas fa-${genderIcon}"></i></h5>
+                                <img src="./images/${pet.name}.jpeg">
+                                <hr>
+                                <p class="card-text card-content ">Type: ${pet.type}</p>
+                                <p class="card-text card-content">Breed: ${pet.breed}</p>
+                                <p class="card-text card-content">Sex: ${pet.sex}</p>
+                                <p class="card-text card-content">Color: ${pet.color}</p>
+                                <p class="card-text card-content">Age: ${pet.age}</p>
+                                <p class="card-text"><a href="details.html?${petURL.toString()}">Click here to find out more about ${pet.name}</a></p>
+                            </div>  
+                        </div>
+                `;
+                return card;
+            }
+
+            displayPets();
+
+            loadMoreButton.addEventListener('click', function(){
+                currentPage++;
+                displayPets();
+
+                if (currentPage * petsPerPage >= pets.length){
+                    loadMoreButton.style.display = 'none';
+                }
+            });
+
+            document.getElementById('closeButton').addEventListener('click', function(){
+                document.getElementById('modalContainer').style.display = 'none';
+            })
+
+            petCardsContainer.addEventListener('click', function(event) {
+                var petCard = event.target.closest('.card');
+                if (petCard) {
+                    var petIndex = Array.from(petCardsContainer.children).indexOf(petCard);
+                    var pet = pets[(currentPage - 1) * petsPerPage + petIndex];
+                    displayModal(pet);
+                }
+            });
+            function displayModal(pet){
+                    
+                //this will add information about the pet to the modal
+                document.getElementById('modalTitle').innerText = 'About ' + pet.name;
+                document.getElementById('modalImage').src = './images/' + pet.name +'.jpeg';
+                document.getElementById('petName').innerText = pet.name;
+                document.getElementById('petType').innerText = 'Type: ' + pet.type;
+                document.getElementById('petBreed').innerText = 'Breed : ' + pet.breed;
+                document.getElementById('modalContainer').style.display = 'inline-block';
+                var link = document.getElementById('petLink');
+                link.href = `./details.html?name=${pet.name}`;
+                link.textContent = "Click here to see more";
+            }
+            </script>
     </body>
 </html>

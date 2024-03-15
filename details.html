@@ -1,19 +1,46 @@
 <!DOCTYPE html>
-<div class="col-md-12">
-    <div class="card-text-center">
-        <div class="card-header">
-            <h5 class="card-title">About Me <i class="fas fa-dog" style="color: brown;"></i></h5>
-            <divclass="card-body" style=text-align: center>
-                <p class="card-text card-content">About Me <i class="fas fa-heart" style="color: red;"></i></p>
-                <hr>
-                <h5 class="card-title" style="font-size: 30px;">More info</h5>
-                <ul>
-                    <li class="list-left"><p class="card-content">Animal ID: ${pet.id}</p></li>
-                    <li class="list-left"><p class="card-content">Microchip: ${pet.chip}</p></li>
-                    <li class="list-left"><p class="card-content">Spayed/Neutered: ${pet.spayed}</p></li>
-                </ul>
-            <a href="./index.html">Back to home</a>
+<html>
+    <head>
+        <script src="./data.js"></script>
+    </head>
+    <body>
+        <div class="col-md-12">
+            <div class="card-text-center">
+                <div class="card-header">
+                    <script>
+                        var urlParams = new URLSearchParams(window.location.search);
+                        var petName = urlParams.get('name');
+                        var pet;
+                            for (var i = 0; i < pets.length; i++) { //looping though data.js to find pet
+                                if (pets[i].name === petName) {
+                                    pet = pets[i];
+                                    break;
+                                }
+                            };
+                    </script>
+                    <h5 class="card-title">About Me <i class="fas fa-dog" style="color: brown;"></i></h5>
+                    <div class="card-body" style=text-align:center>
+                        <p class="card-text card-content">About Me <i class="fas fa-heart" style="color: red;"></i></p>
+                        <hr>
+                        <h5 class="card-title" style="font-size: 30px;">More info</h5>
+                        <ul>
+                            <li class="list-left" id="petID"><p class="card-content"></p></li>
+                            <li class="list-left" id="petChip"><p class="card-content"></p></li>
+                            <li class="list-left" id="petSpayed"><p class="card-content"></p></li>
+                        </ul>
+                        <p class="card-content" id="aboutPet"></p>
+                        <a href="./index.html">Back to home</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <script>
+            if (pet){
+                document.getElementById('petID').innerText = `Pet ID: ${pet.id}`;
+                document.getElementById('petChip').innerText = `Pet Chip #: ${pet.chip}`;
+                document.getElementById('petSpayed').innerText = `Pet spayed/neutered?: ${pet.spayed}`
+                document.getElementById('aboutPet').innerText = pet.about;
+            }
+        </script>
+    </body>
+</html>
