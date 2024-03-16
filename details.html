@@ -1,7 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <script src="./data.js"></script>
+        <style>
+            .info-container{
+                margin-top: 50px;
+                margin-bottom: 50px;
+                font-size: 24px;
+            }
+
+            #petImage{
+                width: 350px;
+                height: 350px;
+                margin-left: 100px;
+            }
+
+            .card-content{
+                font-size: 130;
+            }
+        </style>
     </head>
     <body>
         <div class="col-md-12">
@@ -18,17 +37,24 @@
                                 }
                             };
                     </script>
-                    <h5 class="card-title">About Me <i class="fas fa-dog" style="color: brown;"></i></h5>
                     <div class="card-body" style=text-align:center>
-                        <p class="card-text card-content">About Me <i class="fas fa-heart" style="color: red;"></i></p>
+                        <h3>About Me <i class="fas fa-heart" style="color: red;"></i><h3>
                         <hr>
-                        <h5 class="card-title" style="font-size: 30px;">More info</h5>
-                        <ul>
-                            <li class="list-left" id="petID"><p class="card-content"></p></li>
-                            <li class="list-left" id="petChip"><p class="card-content"></p></li>
-                            <li class="list-left" id="petSpayed"><p class="card-content"></p></li>
-                        </ul>
-                        <p class="card-content" id="aboutPet"></p>
+                        <div class="row">
+                            <div class="col-md-6 info-container" style="text-align: center;">
+                                <h3>More info</h3>
+                                <br><br><br>
+                                <ul>
+                                    <li class="list-left" id="petID"><p class="card-content"></p></li>
+                                    <li class="list-left" id="petChip"><p class="card-content"></p></li>
+                                    <li class="list-left" id="petSpayed"><p class="card-content"></p></li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 image-container">
+                                <img id="petImage">
+                            </div>
+                        </div>
+                        <p class="card-content" id="aboutPet" style="margin: 100px;"></p>
                         <a href="./index.html">Back to home</a>
                     </div>
                 </div>
@@ -40,6 +66,8 @@
                 document.getElementById('petChip').innerText = `Pet Chip #: ${pet.chip}`;
                 document.getElementById('petSpayed').innerText = `Pet spayed/neutered?: ${pet.spayed}`
                 document.getElementById('aboutPet').innerText = pet.about;
+                var petImage = document.getElementById('petImage');
+                petImage.src = `./images/${pet.name}.jpeg`
             }
         </script>
     </body>
